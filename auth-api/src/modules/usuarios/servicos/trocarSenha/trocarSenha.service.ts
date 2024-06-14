@@ -10,7 +10,7 @@ export class TrocarSenhaService {
 
     async executar(data: TrocarSenhaDto, usuarioModificacao: number) {
         if (data.CodigoUsuario) {
-            const usuarioExistente = (await this.repository.buscar(`CodigoUsuario=${data.CodigoUsuario}`)).retorno;
+            const usuarioExistente = await this.repository.buscar(`CodigoUsuario=${data.CodigoUsuario}`);
             if (usuarioExistente.length > 0) {
                 const senha = await argon2.hash(data.NovaSenha)
                 await this.repository.atualizar({CodigoUsuario: data.CodigoUsuario, ModificadoPor: usuarioModificacao, Senha: senha})
@@ -23,7 +23,7 @@ export class TrocarSenhaService {
             }
         }
         else {
-            const usuarioExistente = (await this.repository.buscar(`CodigoUsuario=${usuarioModificacao}`)).retorno
+            const usuarioExistente: any = await this.repository.buscar(`CodigoUsuario=${usuarioModificacao}`)
             const senhaVerificada = await argon2.verify( usuarioExistente[0].Senha, data.SenhaAntiga!);
             if (senhaVerificada) {
                 const senha = await argon2.hash(data.NovaSenha)

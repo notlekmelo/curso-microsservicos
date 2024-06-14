@@ -84,7 +84,7 @@ dos bancos de dados PostgreSQL, MongoDB e do message broker RabbitMQ:
 
 #### Container RabbitMQ
 
-`docker run --name sales_rabbit -p 5672:5672 -p 25676:25676 -p 15672:15672 rabbitmq:3-management`
+`docker run --name sales-rabbit -p 5672:5672 -p 25676:25676 -p 15672:15672 rabbitmq:3-management`
 
 ### Execução docker-compose
 
@@ -97,5 +97,6 @@ Para ignorar os logs, adicione a flag `-d`.
 ### Victor Hugo Negrisoli
 ### Desenvolvedor de Software Back-End
 
-## Aluno Kelton Fonseca
+## Aluno 
+### Kelton Fonseca
 ### Engenheiro de Software

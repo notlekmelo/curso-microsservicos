@@ -3,6 +3,8 @@ import { createInitialData } from './infra/server/conection/baseRepository';
 
 createInitialData();
 
-server.listen(3000, () => {
-  console.log(`[SERVER] Running at http://localhost:3000`);
+const porta = process.env.PORT || 3000
+
+server.listen(porta, () => {
+  console.log(`[SERVER] Running at http://localhost:${porta}`);
 });
