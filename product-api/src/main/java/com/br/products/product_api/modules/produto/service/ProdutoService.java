@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.br.products.product_api.config.excecoes.ExcecaoValidacao;
+import static com.br.products.product_api.config.middleware.RequestUtil.getCurrentRequest;
 import com.br.products.product_api.config.respostas.SucessoResponse;
 import com.br.products.product_api.modules.categoria.service.CategoriaService;
 import com.br.products.product_api.modules.produto.dto.ProdutoEstoqueDTO;
@@ -25,19 +25,21 @@ import com.br.products.product_api.modules.vendas.enums.VendasStatus;
 import com.br.products.product_api.modules.vendas.rabbitmq.ConfirmacaoVendaSender;
 
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class ProdutoService {
-    @Autowired
-    private ProdutoRepository produtoRepository;
-    @Autowired
-    private CategoriaService categoriaService;
-    @Autowired
-    private ConfirmacaoVendaSender confirmacaoVendaSender;
-    @Autowired
-    private VendaClient vendaClient;
+    
+    private final ProdutoRepository produtoRepository;
+    
+    private final CategoriaService categoriaService;
+    
+    private final ConfirmacaoVendaSender confirmacaoVendaSender;
+    
+    private final VendaClient vendaClient;
 
     public ProdutoResponse save(ProdutoRequest request) {
         validarNovoProduto(request);
@@ -144,7 +146,9 @@ public class ProdutoService {
     public VendasProdutoResponse findVendasProduto(Integer id) {
         var produto = findById(id);
         try {
-            var vendas = vendaClient.findVendabyCodigoProduto(id).orElseThrow(() -> new ExcecaoValidacao("Este produto ainda não foi vendido"));
+            var currentRequest = getCurrentRequest();
+            var token = currentRequest.getHeader("x-access-token");
+            var vendas = vendaClient.findVendabyCodigoProduto(id,token).orElseThrow(() -> new ExcecaoValidacao("Este produto ainda não foi vendido"));
             return VendasProdutoResponse.of(produto, vendas.getData());
         } catch (Exception err) {
             throw new ExcecaoValidacao("Ocorreu um erro ao buscar as vendas desse produto");

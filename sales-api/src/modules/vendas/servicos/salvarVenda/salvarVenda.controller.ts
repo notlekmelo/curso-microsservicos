@@ -9,7 +9,6 @@ export class SalvarVendaController {
     async guia(req: Request, res: Response) {
         const data = req.body as IPedido;
         const token = req.headers['x-access-token'];
-        this.validador(data);
         data.InseridoPor = {
             CodigoUsuario: req.query.token,
             Nome: req.query.userName
@@ -20,6 +19,7 @@ export class SalvarVendaController {
             data: null
         }
         try {
+            this.validador(data);
             const usuario = await this.salvarVendaService.executar(data, String(token));
             if (usuario) {
                 response.data = usuario;

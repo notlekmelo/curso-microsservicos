@@ -95,7 +95,7 @@ services:
       - DBUSER=admin
       - DBPASS=123456
       - RABBITMQURL=amqp://guest:guest@sales-rabbit:5672/
-      - PRODUCT_API_URL=http://product-api:3001/
+      - PRODUCT_API_URL=http://product-api:3001/api/produtos
       - NODE_ENV=container
     ports:
       - 3002:3002

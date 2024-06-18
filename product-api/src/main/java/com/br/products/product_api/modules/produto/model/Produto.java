@@ -27,7 +27,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Produto {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CodigoProduto")
     private Integer codigoProduto;
 
     @Column(name = "Descricao", nullable = false)

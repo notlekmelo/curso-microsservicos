@@ -24,7 +24,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "Categorias")
 public class Categoria {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CodigoCategoria")
     private Integer codigoCategoria;
     
     @Column(name = "Descricao", nullable = false)

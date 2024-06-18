@@ -2,20 +2,18 @@ package com.br.products.product_api.modules.vendas.client;
 
 import java.util.Optional;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.HttpExchange;
 
 import com.br.products.product_api.modules.vendas.dto.VendaResponse;
 
-@FeignClient(
-    name = "vendaClient",
-    contextId = "vendaClient",
-    url = "${app-config.services.sales}"
-)
+@HttpExchange("/vendas")
 public interface VendaClient {
 
-    @GetMapping("/vendas/produto/{codigoProduto}")
-    Optional<VendaResponse> findVendabyCodigoProduto(@PathVariable("codigoProduto") Integer codigoProduto);
+    @GetExchange("/produto/{codigoProduto}")
+    Optional<VendaResponse> findVendabyCodigoProduto(@PathVariable("codigoProduto") Integer codigoProduto,
+                                                        @RequestHeader(name="x-access-token") String token);
 
 }

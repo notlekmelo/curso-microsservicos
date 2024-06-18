@@ -2,7 +2,6 @@ package com.br.products.product_api.modules.produto.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +18,14 @@ import com.br.products.product_api.modules.produto.dto.VendasProdutoResponse;
 import com.br.products.product_api.modules.produto.dto.VerificaEstoqueRequest;
 import com.br.products.product_api.modules.produto.service.ProdutoService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/api/produtos")
+@AllArgsConstructor
 public class ProdutoController {
-    @Autowired
-    private ProdutoService produtoService;
+    
+    private final ProdutoService produtoService;
 
     @PostMapping    
     public ProdutoResponse save(@RequestBody ProdutoRequest request) {

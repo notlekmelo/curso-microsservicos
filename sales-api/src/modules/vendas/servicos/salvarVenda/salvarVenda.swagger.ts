@@ -67,7 +67,7 @@ const salvarVendaDefinitions = [
                     items: {
                         type: 'object',
                         properties: {
-                            CodigoProduto: {
+                            codigoProduto: {
                                 type: "integer",
                             },
                             quantidade: {

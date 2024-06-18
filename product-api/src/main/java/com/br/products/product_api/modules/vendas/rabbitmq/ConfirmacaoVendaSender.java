@@ -2,20 +2,20 @@ package com.br.products.product_api.modules.vendas.rabbitmq;
 
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.br.products.product_api.modules.vendas.dto.ConfirmacaoVendaDTO;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ConfirmacaoVendaSender {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     @Value("${app-config.rabbit.routingKey.sales-confirmation}")
     private String salesConfirmationRoutingKey;

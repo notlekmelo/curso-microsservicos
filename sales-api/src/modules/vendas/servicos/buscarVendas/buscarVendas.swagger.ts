@@ -64,7 +64,7 @@ const buscarVendasDefinitions = [
                             items: {
                                 type: 'object',
                                 properties: {
-                                    CodigoProduto: {
+                                    codigoProduto: {
                                         type: "integer",
                                     },
                                     quantidade: {
